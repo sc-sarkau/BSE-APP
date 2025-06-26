@@ -1,0 +1,25 @@
+<div class="modal-backdrop">
+  <div class="modal">
+    <h2 class="modal-title">Update Market Data</h2>
+
+    <div class="field-style">
+      <label for="date">Update Date:</label>
+      <input type="date" id="date" [ngModel]="updateDate | date:'yyyy-MM-dd'" (ngModelChange)="onDateChange($event)"/>
+    </div>
+
+    <div class="field-style">
+      <label for="open">Update Opening Price:</label>
+      <input type="number" id="open" [(ngModel)]="updateOpen" />
+    </div>
+
+    <div class="field-style">
+      <label for="close">Update Closing Price:</label>
+      <input type="number" id="close" [(ngModel)]="updateClose" />
+    </div>
+
+    <div class="modal-buttons">
+      <button class="btn btn-cancel" (click)="closeActionModal()">Close</button>
+      <button class="btn btn-add" (click)="updateData()">Save</button>
+    </div>
+  </div>
+</div>

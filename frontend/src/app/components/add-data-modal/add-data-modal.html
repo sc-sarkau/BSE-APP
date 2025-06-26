@@ -1,0 +1,26 @@
+<!-- <p>add-data-modal works!</p> -->
+<div class="modal-backdrop">
+  <div class="modal">
+    <h2 class="modal-title">Add Market Data</h2>
+
+    <div class="field-style">
+      <label for="date">Enter Date:</label>
+      <input type="date" id="date" [(ngModel)]="addDate" />
+    </div>
+
+    <div class="field-style">
+      <label for="open">Opening Price:</label>
+      <input type="number" id="open" [(ngModel)]="addOpen" />
+    </div>
+
+    <div class="field-style">
+      <label for="close">Closing Price:</label>
+      <input type="number" id="close" [(ngModel)]="addClose" />
+    </div>
+
+    <div class="modal-buttons">
+      <button class="btn btn-cancel" (click)="closeModal()">Close</button>
+      <button class="btn btn-add" (click)="addNewData()">Add</button>
+    </div>
+  </div>
+</div>

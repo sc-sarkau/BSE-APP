@@ -1,0 +1,6 @@
+design patterns
+factory design patterns
+singleton patterns
+js classes
+segregate functions
+github
