@@ -6,7 +6,7 @@ body{
   border-spacing: 0;
   /* border-radius: ; */
   width: 80%;
-  max-width: 700px;
+  max-width: 500px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   overflow: hidden;
@@ -22,8 +22,13 @@ body{
   font-size: 14px;
 }
 
-.styled-table th, .styled-table td {
-  padding: 16px 20px;
+.styled-table th{
+  padding: 10px 12px;
+  text-align: center;
+}
+
+.styled-table td {
+  padding: 5px 12px;
   text-align: center;
 }
 

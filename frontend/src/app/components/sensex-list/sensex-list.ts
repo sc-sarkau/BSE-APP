@@ -10,9 +10,10 @@ import { Auth } from '../../auth';
 import { ActionModal } from '../action-modal/action-modal';
 import { DeleteModal } from '../delete-modal/delete-modal';
 import { AverageCalculator } from '../../services/average-calculator';
+import { AverageGraph } from '../average-graph/average-graph';
 @Component({
   selector: 'app-sensex-list',
-  imports: [NgFor, FormsModule, AddDataModal, NgIf, CommonModule, ActionModal, DeleteModal],
+  imports: [NgFor, FormsModule, AddDataModal, NgIf, CommonModule, ActionModal, DeleteModal, AverageGraph],
   templateUrl: './sensex-list.html',
   styleUrl: './sensex-list.css'
 })
@@ -22,13 +23,14 @@ export class SensexList implements OnInit {
   dataToDelete: any;
   paginatedData: any[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 30;
+  itemsPerPage: number = 10;
   addDate: Date | null = null;
   addOpen: number | null = null;
   addClose: number | null = null;
   isModalOpen: boolean = false;
   isActionOpen: boolean = false;
   isDeleteOpen: boolean = false;
+  backButtonFlag: any;
   constructor(private router: Router) {}
   private sensexService = inject(Sensex);
   private cdr = inject(ChangeDetectorRef);
@@ -171,6 +173,7 @@ export class SensexList implements OnInit {
   }
 
   toGraph() {
+    this.backButtonFlag = true;
     this.router.navigate(['/graph']);
   }
 }

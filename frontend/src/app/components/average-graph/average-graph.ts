@@ -1,20 +1,23 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import { Component, inject, input, Input, OnInit } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { AverageCalculator } from '../../services/average-calculator';
 import { Sensex } from '../../services/sensex';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgIf } from '@angular/common';
 @Component({
   selector: 'app-average-graph',
-  imports: [BaseChartDirective],
+  imports: [BaseChartDirective, NgIf],
   templateUrl: './average-graph.html',
   styleUrl: './average-graph.css'
 })
 export class AverageGraph implements OnInit {
+  buttonFlag : boolean = false;
   title = 'ng2-charts-demo';
   sensexData: any[] = [];
   plottingData: any = {};
+  constructor(private router: Router) {}
   public barChartLabels: string[] = [];
   public barChartData: ChartConfiguration<'bar'>['data'] = {
     labels: [],
@@ -36,8 +39,12 @@ export class AverageGraph implements OnInit {
     }
   };
 
-  constructor(private router: Router) {}
+  
   ngOnInit(): void {
+    if(this.router.url === '/graph'){
+      this.buttonFlag = true;
+      this.cdr.detectChanges();
+    }
     this.sensex.getAll().subscribe(allData => {
         this.sensexData = allData;
         this.plottingData = this.averageCalculator.calculateMonthlyAverage(this.sensexData);
