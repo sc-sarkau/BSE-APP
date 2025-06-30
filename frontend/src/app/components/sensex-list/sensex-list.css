@@ -92,12 +92,12 @@ body{
 }
 
 .btn-add {
-  background-color: #66bb6a;
-  color: #333;
+  background-color: #4CAF50;
+  color: white;
 }
 
 .btn-add:hover {
-  background-color: #57a65a;
+  background-color: #43a047;
 }
 
 .page-indicator {
@@ -141,16 +141,19 @@ body{
 }
 
 .button-ai {
-  color: #333;
-  background: linear-gradient(to right, #8ec5fc, #e0c3fc);
+  color: white;
+  background: #42A5F5;
   background-size: 400% 400%;
   border: none;
   cursor: pointer;
-  animation: gradientIdle 5s ease infinite;
+  /* animation: gradientIdle 5s ease infinite; */
   /* transition: background-position 0.5s ease, background-size 0.5s ease; */
   outline: none;
 }
 
+.button-ai:hover{
+  background-color: #1976d2;
+}
 /* .button-ai:hover {
   animation: gradientFlow 1s ease-in-out infinite;
   background-size: 800% 800%;

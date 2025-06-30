@@ -28,7 +28,7 @@ function importCsvData() {
       records.sort((a, b) => b.date - a.date);
 
       try {
-        await SensexData.deleteMany({});
+        // await SensexData.deleteMany({});
         await SensexData.insertMany(records);
         console.log('CSV data imported successfully.');
       } catch (err) {

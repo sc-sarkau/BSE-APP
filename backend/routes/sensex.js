@@ -28,6 +28,8 @@ router.get('/:id', auth, async(req,res) => {
 router.post('/', auth, async(req,res) => {
     try{
         const data = new SensexData(req.body);
+        const io = req.app.get('io');
+        io.emit('data-added', data);
         await data.save();
         res.status(201).json(data);
     }
@@ -47,7 +49,9 @@ router.put('/:id', auth, async (req, res) => {
         if (!updatedData) {
             return res.status(404).json({ message: 'Data not found' });
         }
-
+        
+        const io = req.app.get('io');
+        io.emit('data-updated', updatedData);
         res.json(updatedData);
     } catch (error) {
         res.status(400).json({ message: 'Error updating data', error });
@@ -57,6 +61,9 @@ router.put('/:id', auth, async (req, res) => {
 router.delete('/:id', auth, async(req,res) => {
     try {
         const result = await SensexData.findByIdAndDelete(req.params.id);
+        
+        const io = req.app.get('io');
+        io.emit('data-deleted', result);
         res.status(200).json({ message: "Data deleted", result });
     } 
     catch (error) {

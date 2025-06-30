@@ -4,3 +4,4 @@ singleton patterns
 js classes
 segregate functions
 github
+jest lib
