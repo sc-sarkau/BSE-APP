@@ -20,6 +20,7 @@ export class Login implements OnInit{
   private cdr = inject(ChangeDetectorRef);
   private apiUrl = 'http://localhost:3000/users';
   ngOnInit(){
+    // this.authService.autoLogin();
     // this.router.navigate(['/sensex-list']);
     // this.http.get<any[]>(this.apiUrl).subscribe(data => {
     //   this.users = data;

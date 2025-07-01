@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 })
 export class Auth {
   private apiUrl = 'http://localhost:3000/users';
+  private tokenExpirationTimer: any;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -16,6 +17,8 @@ export class Auth {
 
   setToken(token: string) {
     localStorage.setItem('jwtToken', token);
+    const expiresIn = 15 * 60 * 1000;
+    this.autoLogout(expiresIn);
   }
 
   getToken() {
@@ -24,6 +27,28 @@ export class Auth {
 
   logout() {
     localStorage.removeItem('jwtToken');
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
     this.router.navigate(['/']);
   }
+
+  autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      alert('Session expired. You have been logged out.');
+      this.logout();
+      
+
+      // console.log("chala");
+    }, expirationDuration);
+  }
+
+  // autoLogin() {
+  //   const token = this.getToken();
+  //   if (token) {
+  //     const expiresIn = 15 * 60 * 1000;
+  //     this.autoLogout(expiresIn);
+  //     this.router.navigate(['sensex-list']);
+  //   }
+  // }
 }
