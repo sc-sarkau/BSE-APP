@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, NgZone, OnInit } from '@angular/core';
 import { inject } from '@angular/core';
 import { Sensex } from '../../services/sensex';
-import { CommonModule, NgFor, NgIf} from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AddDataModal } from '../add-data-modal/add-data-modal';
 import { Router } from '@angular/router';
@@ -14,9 +14,18 @@ import { AverageGraph } from '../average-graph/average-graph';
 import { SocketService } from '../../services/socket-service';
 @Component({
   selector: 'app-sensex-list',
-  imports: [NgFor, FormsModule, AddDataModal, NgIf, CommonModule, ActionModal, DeleteModal, AverageGraph],
+  imports: [
+    NgFor,
+    FormsModule,
+    AddDataModal,
+    NgIf,
+    CommonModule,
+    ActionModal,
+    DeleteModal,
+    AverageGraph,
+  ],
   templateUrl: './sensex-list.html',
-  styleUrl: './sensex-list.css'
+  styleUrl: './sensex-list.css',
 })
 export class SensexList implements OnInit {
   sensexData: any[] = [];
@@ -32,11 +41,15 @@ export class SensexList implements OnInit {
   isActionOpen: boolean = false;
   isDeleteOpen: boolean = false;
   backButtonFlag: any;
-  constructor(private router: Router, private socketService: SocketService, private ngZone: NgZone) {}
+  constructor(
+    private router: Router,
+    private socketService: SocketService,
+    private ngZone: NgZone
+  ) {}
   private sensexService = inject(Sensex);
   private cdr = inject(ChangeDetectorRef);
   private authService = inject(Auth);
-  private averageCalculator = inject(AverageCalculator)
+  private averageCalculator = inject(AverageCalculator);
   tempCurrentPage: number = 1;
   highlightedId: any;
   ngOnInit() {
@@ -51,7 +64,9 @@ export class SensexList implements OnInit {
 
     this.socketService.listen('data-updated').subscribe((updatedData) => {
       this.ngZone.run(() => {
-        const index = this.sensexData.findIndex(d => d._id === updatedData._id);
+        const index = this.sensexData.findIndex(
+          (d) => d._id === updatedData._id
+        );
         if (index !== -1) this.sensexData[index] = updatedData;
         this.loadData(1);
       });
@@ -59,7 +74,9 @@ export class SensexList implements OnInit {
 
     this.socketService.listen('data-deleted').subscribe((deletedData) => {
       this.ngZone.run(() => {
-        this.sensexData = this.sensexData.filter(d => d._id !== deletedData._id);
+        this.sensexData = this.sensexData.filter(
+          (d) => d._id !== deletedData._id
+        );
         this.loadData(1);
       });
     });
@@ -83,21 +100,21 @@ export class SensexList implements OnInit {
   }
 
   loadData(pageNumber: number) {
-    this.sensexService.getAll().subscribe(data => {
+    this.sensexService.getAll().subscribe((data) => {
       this.sensexData = data;
       this.currentPage = pageNumber;
       this.paginate();
       this.cdr.detectChanges();
       // console.log(this.sensexData);
       // console.log(this.averageCalculator.calculateMonthlyAverage(this.sensexData));
-    })
+    });
   }
 
   loadDataAndHighlight(id: string) {
-    this.sensexService.getAll().subscribe(data => {
+    this.sensexService.getAll().subscribe((data) => {
       this.sensexData = data;
-      
-      const index = this.sensexData.findIndex(item => item._id === id);
+
+      const index = this.sensexData.findIndex((item) => item._id === id);
       if (index === -1) return;
 
       const page = Math.floor(index / this.itemsPerPage) + 1;
@@ -114,12 +131,11 @@ export class SensexList implements OnInit {
 
           setTimeout(() => {
             element.classList.remove('highlight');
-          }, 2000);
+          }, 3000);
+        } else {
+          console.log('element not found');
         }
-        else{
-          console.log("element not found");
-        }
-      }, 100)
+      }, 100);
     });
   }
 
@@ -130,7 +146,7 @@ export class SensexList implements OnInit {
   }
 
   nextPage() {
-    if ((this.currentPage * this.itemsPerPage) < this.sensexData.length) {
+    if (this.currentPage * this.itemsPerPage < this.sensexData.length) {
       this.currentPage++;
       this.paginate();
     }
@@ -144,8 +160,7 @@ export class SensexList implements OnInit {
   }
 
   addNewData(newData: any) {
-    
-    this.sensexService.addData(newData).subscribe(data =>{
+    this.sensexService.addData(newData).subscribe((data) => {
       // this.loadData(1);
       console.log(data);
       this.highlightedId = data._id;
@@ -158,7 +173,7 @@ export class SensexList implements OnInit {
     // this.addClose = null;
   }
   updateData(updatedData: any) {
-    this.sensexService.updateData(updatedData).subscribe(data =>{
+    this.sensexService.updateData(updatedData).subscribe((data) => {
       // this.tempCurrentPage = this.currentPage;
       this.loadData(this.currentPage);
       // this.paginate();
@@ -171,7 +186,7 @@ export class SensexList implements OnInit {
 
   deleteData(flag: boolean) {
     console.log(this.dataToDelete);
-    this.sensexService.deleteData(this.dataToDelete).subscribe(data =>{
+    this.sensexService.deleteData(this.dataToDelete).subscribe((data) => {
       this.loadData(this.currentPage);
       // console.log(this.sensexData);
     });
@@ -189,7 +204,6 @@ export class SensexList implements OnInit {
     console.log('Action clicked for:', item._id);
     this.dataToUpdate = item;
     this.isActionOpen = true;
-    
   }
   handleDelete(item: any): void {
     console.log('Delete clicked for:', item);

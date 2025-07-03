@@ -1,5 +1,5 @@
-body{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 .styled-table {
   border-collapse: separate;
@@ -15,14 +15,14 @@ body{
 }
 
 .styled-table thead {
-    /* background-color: #333; */
+  /* background-color: #333; */
   background: linear-gradient(to right, #8ec5fc, #e0c3fc);
   color: #333;
   text-transform: uppercase;
   font-size: 14px;
 }
 
-.styled-table th{
+.styled-table th {
   padding: 10px 12px;
   text-align: center;
 }
@@ -81,7 +81,6 @@ body{
   position: relative;
 }
 
-
 .btn-cancel {
   background-color: #888;
   color: white;
@@ -92,7 +91,7 @@ body{
 }
 
 .btn-add {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
 }
 
@@ -142,7 +141,7 @@ body{
 
 .button-ai {
   color: white;
-  background: #42A5F5;
+  background: #42a5f5;
   background-size: 400% 400%;
   border: none;
   cursor: pointer;
@@ -151,7 +150,7 @@ body{
   outline: none;
 }
 
-.button-ai:hover{
+.button-ai:hover {
   background-color: #1976d2;
 }
 /* .button-ai:hover {
@@ -160,9 +159,15 @@ body{
 } */
 
 @keyframes gradientIdle {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* @keyframes gradientFlow {
@@ -173,9 +178,7 @@ body{
   100% { background-position: 0% 50%; }
 } */
 
-
-
-.operations{
+.operations {
   margin: auto;
   padding: 16px 100px 24px 100px;
   display: flex;
@@ -183,11 +186,17 @@ body{
 }
 
 .highlight {
-  animation: flash-highlight 2s ease-in-out;
+  animation: flash-highlight 3s ease-in-out;
 }
 
 @keyframes flash-highlight {
-  0% { background-color: #ffeb3b; }
-  50% { background-color: #ffc107; }
-  100% { background-color: #f3f8ff; }
+  0% {
+    background-color: #ffeb3b;
+  }
+  50% {
+    background-color: #ffc107;
+  }
+  100% {
+    background-color: #f3f8ff;
+  }
 }

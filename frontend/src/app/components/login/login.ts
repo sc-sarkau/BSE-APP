@@ -3,9 +3,13 @@ import { ChangeDetectorRef, Component, inject, OnInit, signal } from '@angular/c
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Auth } from '../../auth';
+import { MatInputModule } from '@angular/material/input';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { CommonModule } from '@angular/common';
+
 @Component({
   selector: 'app-login',
-  imports: [FormsModule],
+  imports: [FormsModule, MatInputModule, MatAutocompleteModule, CommonModule],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
@@ -19,6 +23,8 @@ export class Login implements OnInit{
   private authService = inject(Auth);
   private cdr = inject(ChangeDetectorRef);
   private apiUrl = 'http://localhost:3000/users';
+  emailSuggestions: string[] = [];
+  private commonDomains: string[] = ['scryai.com', 'gmail.com', 'outlook.com', 'yahoo.com'];
   ngOnInit(){
     // this.authService.autoLogin();
     // this.router.navigate(['/sensex-list']);
@@ -66,5 +72,15 @@ export class Login implements OnInit{
     // localStorage.setItem('username', this.username);
     // console.log('Username stored:', localStorage.getItem('username'));
     // this.router.navigate(['/user-list']);
+  }
+
+  onInputChange() {
+    const [localPart, domainPart] = this.username.split('@');
+    if (!domainPart && localPart) {
+      this.emailSuggestions = this.commonDomains.map(d => `${localPart}@${d}`);
+    } else {
+      this.emailSuggestions = [];
+    }
+    this.cdr.detectChanges();
   }
 }

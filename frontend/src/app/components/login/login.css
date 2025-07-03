@@ -35,11 +35,44 @@
   transition: border 0.3s, box-shadow 0.3s;
 }
 
+.login-input .mat-form-field-wrapper {
+  padding: 0;
+}
+.login-input .mat-form-field-flex {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 10px;
+}
+
 .login-input:focus {
   border-color: #4CAF50;
   box-shadow: 0 0 5px rgba(76, 175, 80, 0.3);
   outline: none;
 }
+
+
+::ng-deep .mat-form-field.login-input {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 6px 12px;
+  background: white;
+}
+
+::ng-deep .mat-form-field.login-input .mat-form-field-flex {
+  border: none;
+  padding: 0;
+}
+
+::ng-deep .mat-form-field.login-input .mat-input-element {
+  padding: 10px;
+  font-size: 16px;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  display: none; /* remove material outline */
+}
+
 
 .btn {
   padding: 10px;
