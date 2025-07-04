@@ -46,3 +46,82 @@ PORT=3000
 MONGODB_URI=mongodb://localhost:27017/sensexdb
 JWT_SECRET=<secret-key>
 ```
+
+#### Start Backend Server
+
+```bash
+cd backend
+npm install
+node server.js
+```
+
+---
+
+### 2. **Frontend Setup**
+
+#### Start Angular App
+
+```bash
+cd frontend
+npm install
+ng serve
+```
+
+---
+
+## Authentication
+
+- JWT is issued on registration/login and stored in `localStorage`
+- Token is automatically added to API requests using an Angular **HttpInterceptor**
+- Auto logout occurs on token expiration
+
+---
+
+## Testing
+
+### Frontend (Jasmine + Karma)
+
+```bash
+cd frontend
+ng test
+```
+
+### Backend (Jest)
+
+```bash
+cd backend
+npm test
+```
+
+---
+
+## Port Overview
+
+| Service           | Port  |
+| ----------------- | ----- |
+| Angular Frontend  | 4200  |
+| Express Backend   | 3000  |
+| MongoDB (default) | 27017 |
+
+---
+
+## Project Structure
+
+```bash
+frontend/
+  └── src/
+      └── app/
+          ├── auth/
+          ├── services/
+          └── components/
+
+backend/
+  ├── models/
+  ├── routes/
+  ├── middleware/
+  │   └── auth.js
+  ├── controllers/
+  └── server.js
+
+.env
+```
