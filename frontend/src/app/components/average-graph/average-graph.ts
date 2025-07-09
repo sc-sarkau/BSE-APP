@@ -106,6 +106,9 @@ export class AverageGraph implements OnInit {
   };
 
   ngOnInit(): void {
+    if (localStorage.getItem('jwtToken') == null) {
+      this.router.navigate(['/']);
+    }
     if (this.router.url === '/graph') {
       this.buttonFlag = true;
       this.cdr.detectChanges();

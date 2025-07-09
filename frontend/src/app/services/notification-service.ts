@@ -6,13 +6,11 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class NotificationService {
   constructor(private snackBar: MatSnackBar) {}
-  // private cdr = inject(ChangeDetectorRef);
   showSuccess(message: string) {
     this.snackBar.open(message, 'OK', {
       duration: 3000,
       panelClass: ['success-snackbar'],
     });
-    // this.cdr.detectChanges();
   }
 
   showError(message: string) {

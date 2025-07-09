@@ -1,14 +1,12 @@
 import { Injectable } from '@angular/core';
 
-
 export interface MonthlyAverage {
   [month: string]: number;
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class AverageCalculator {
   calculateMonthlyAverage(data: any): MonthlyAverage {
     const monthlyData: { [month: string]: { sum: number; count: number } } = {};
@@ -18,7 +16,9 @@ export class AverageCalculator {
 
       if (isNaN(date.getTime())) continue;
 
-      const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+      const monthKey = `${date.getFullYear()}-${String(
+        date.getMonth() + 1
+      ).padStart(2, '0')}`;
       if (!monthlyData[monthKey]) {
         monthlyData[monthKey] = { sum: 0, count: 0 };
       }
@@ -34,5 +34,5 @@ export class AverageCalculator {
 
     return monthlyAverages;
   }
-  constructor() { }
+  constructor() {}
 }

@@ -55,6 +55,10 @@ export class SensexList implements OnInit {
   tempCurrentPage: number = 1;
   highlightedId: any;
   ngOnInit() {
+    console.log(localStorage.getItem('jwtToken'));
+    if (localStorage.getItem('jwtToken') == null) {
+      this.router.navigate(['/']);
+    }
     this.loadData(1);
 
     this.socketService.listen('data-added').subscribe((newData) => {
@@ -100,28 +104,23 @@ export class SensexList implements OnInit {
   closeDeleteModal(flag: boolean) {
     this.isDeleteOpen = flag;
   }
-
+  /**
+   * Loads Data in Table
+   * @param pageNumber
+   */
   loadData(pageNumber: number) {
-    this.sensexService.getAll().subscribe({
-      next: (res) => {
-        console.log(res);
-        if (res.length != 0) {
-          this.sensexData = res;
-          this.currentPage = pageNumber;
-          this.paginate();
-          this.cdr.detectChanges();
-        } else {
-          this.notification.showWarning(res.message);
-        }
-      },
-      error: (err) => {
-        this.notification.showError(
-          err.error?.message || 'Something went wrong'
-        );
-      },
+    this.sensexService.getAll().subscribe((data) => {
+      this.sensexData = data;
+      this.currentPage = pageNumber;
+      this.paginate();
+      this.cdr.detectChanges();
     });
   }
 
+  /**
+   * Highlights data after addition
+   * @param id
+   */
   loadDataAndHighlight(id: string) {
     this.sensexService.getAll().subscribe((data) => {
       this.sensexData = data;
@@ -151,6 +150,9 @@ export class SensexList implements OnInit {
     });
   }
 
+  /**
+   * Segregates Table Data into multiple pages
+   */
   paginate() {
     const start = (this.currentPage - 1) * this.itemsPerPage;
     const end = start + this.itemsPerPage;
@@ -170,7 +172,10 @@ export class SensexList implements OnInit {
       this.paginate();
     }
   }
-
+  /**
+   * Adds Data
+   * @param newData
+   */
   addNewData(newData: any) {
     this.sensexService.addData(newData).subscribe({
       next: (res) => {
@@ -192,6 +197,10 @@ export class SensexList implements OnInit {
       },
     });
   }
+  /**
+   * Updates Data
+   * @param updatedData
+   */
   updateData(updatedData: any) {
     this.sensexService.updateData(updatedData).subscribe({
       next: (res) => {
@@ -212,6 +221,10 @@ export class SensexList implements OnInit {
     });
   }
 
+  /**
+   * Deletes Data
+   * @param flag
+   */
   deleteData(flag: boolean) {
     console.log(this.dataToDelete);
     this.sensexService.deleteData(this.dataToDelete).subscribe({
