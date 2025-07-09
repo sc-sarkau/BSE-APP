@@ -10,10 +10,10 @@ import { NgIf } from '@angular/common';
   selector: 'app-average-graph',
   imports: [BaseChartDirective, NgIf],
   templateUrl: './average-graph.html',
-  styleUrl: './average-graph.css'
+  styleUrl: './average-graph.css',
 })
 export class AverageGraph implements OnInit {
-  buttonFlag : boolean = false;
+  buttonFlag: boolean = false;
   title = 'ng2-charts-demo';
   sensexData: any[] = [];
   plottingData: any = {};
@@ -22,10 +22,10 @@ export class AverageGraph implements OnInit {
   public barChartValues: any[] = [];
   public barChartData: ChartConfiguration<'bar'>['data'] = {
     labels: [],
-    datasets: []
+    datasets: [],
   };
   private sensex = inject(Sensex);
-  private  averageCalculator = inject(AverageCalculator)
+  private averageCalculator = inject(AverageCalculator);
   private cdr = inject(ChangeDetectorRef);
   public barChartOptions: ChartConfiguration<'bar'>['options'] = {
     responsive: true,
@@ -37,8 +37,8 @@ export class AverageGraph implements OnInit {
             size: 14,
             weight: 'bold',
           },
-          color: '#333'
-        }
+          color: '#333',
+        },
       },
       title: {
         display: true,
@@ -46,17 +46,17 @@ export class AverageGraph implements OnInit {
         font: {
           size: 18,
           weight: 'bold',
-          family: 'Segoe UI, Roboto, sans-serif'
+          family: 'Segoe UI, Roboto, sans-serif',
         },
-        color: '#444'
+        color: '#444',
       },
       tooltip: {
         backgroundColor: '#f1f8ff',
         titleColor: '#1976d2',
         bodyColor: '#333',
         borderColor: '#42A5F5',
-        borderWidth: 1
-      }
+        borderWidth: 1,
+      },
     },
     scales: {
       x: {
@@ -66,19 +66,19 @@ export class AverageGraph implements OnInit {
           color: '#333',
           font: {
             size: 16,
-            family: 'Segoe UI, Roboto, sans-serif'
-          }
+            family: 'Segoe UI, Roboto, sans-serif',
+          },
         },
         ticks: {
           color: '#444',
           font: {
             size: 13,
-            family: 'Segoe UI, Roboto, sans-serif'
-          }
+            family: 'Segoe UI, Roboto, sans-serif',
+          },
         },
         grid: {
-          display: false
-        }
+          display: false,
+        },
       },
       y: {
         title: {
@@ -87,66 +87,65 @@ export class AverageGraph implements OnInit {
           color: '#333',
           font: {
             size: 16,
-            family: 'Segoe UI, Roboto, sans-serif'
-          }
+            family: 'Segoe UI, Roboto, sans-serif',
+          },
         },
         ticks: {
           color: '#444',
           font: {
             size: 13,
-            family: 'Segoe UI, Roboto, sans-serif'
-          }
+            family: 'Segoe UI, Roboto, sans-serif',
+          },
         },
         grid: {
-          color: '#e0f0ff'
+          color: '#e0f0ff',
         },
-        beginAtZero: false
-      }
-    }
+        beginAtZero: false,
+      },
+    },
   };
 
-
-  
   ngOnInit(): void {
-    if(this.router.url === '/graph'){
+    if (this.router.url === '/graph') {
       this.buttonFlag = true;
       this.cdr.detectChanges();
     }
-    this.sensex.getAll().subscribe(allData => {
-        this.sensexData = allData;
-        this.plottingData = this.averageCalculator.calculateMonthlyAverage(this.sensexData);
-        console.log(this.plottingData);
-        console.log(Object.values(this.plottingData));
-        this.barChartLabels = Object.keys(this.plottingData).reverse();
-        const monthLabels: string[] = this.barChartLabels.map(dateStr => {
-          const [year, month] = dateStr.split("-");
-          const date = new Date(Number(year), Number(month) - 1); // Month is 0-indexed
-          return date.toLocaleString('default', { month: 'short' }); // e.g., "January"
-        });
-        console.log('Labels:', this.barChartLabels);
-        console.log('Data:', Object.values(this.plottingData).reverse());
-        this.barChartValues = Object.values(this.plottingData).reverse();
-        this.barChartData = {
-          labels: monthLabels,
-          datasets: [
-            {
-              data: this.barChartValues,
-              label: 'Avg Monthly Closing',
-              backgroundColor: '#42A5F5',
-              borderRadius: 5,
-              barPercentage: 0.7,
-              categoryPercentage: 0.6
-            }
-          ]
-        };
+    this.sensex.getAll().subscribe((allData) => {
+      this.sensexData = allData;
+      this.plottingData = this.averageCalculator.calculateMonthlyAverage(
+        this.sensexData
+      );
+      console.log(this.plottingData);
+      console.log(Object.values(this.plottingData));
+      this.barChartLabels = Object.keys(this.plottingData).reverse();
+      const monthLabels: string[] = this.barChartLabels.map((dateStr) => {
+        const [year, month] = dateStr.split('-');
+        const date = new Date(Number(year), Number(month) - 1);
+        return date.toLocaleString('default', { month: 'short' });
+      });
+      console.log('Labels:', this.barChartLabels);
+      console.log('Data:', Object.values(this.plottingData).reverse());
+      this.barChartValues = Object.values(this.plottingData).reverse();
+      this.barChartData = {
+        labels: monthLabels,
+        datasets: [
+          {
+            data: this.barChartValues,
+            label: 'Avg Monthly Closing',
+            backgroundColor: '#42A5F5',
+            borderRadius: 5,
+            barPercentage: 0.7,
+            categoryPercentage: 0.6,
+          },
+        ],
+      };
 
-        this.cdr.detectChanges();
+      this.cdr.detectChanges();
     });
   }
-  
-  clickBack(){
+
+  clickBack() {
     this.router.navigate(['/sensex-list']);
     this.cdr.detectChanges();
   }
-  
 }

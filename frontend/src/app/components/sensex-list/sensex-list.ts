@@ -12,6 +12,7 @@ import { DeleteModal } from '../delete-modal/delete-modal';
 import { AverageCalculator } from '../../services/average-calculator';
 import { AverageGraph } from '../average-graph/average-graph';
 import { SocketService } from '../../services/socket-service';
+import { NotificationService } from '../../services/notification-service';
 @Component({
   selector: 'app-sensex-list',
   imports: [
@@ -50,6 +51,7 @@ export class SensexList implements OnInit {
   private cdr = inject(ChangeDetectorRef);
   private authService = inject(Auth);
   private averageCalculator = inject(AverageCalculator);
+  private notification = inject(NotificationService);
   tempCurrentPage: number = 1;
   highlightedId: any;
   ngOnInit() {
@@ -100,13 +102,25 @@ export class SensexList implements OnInit {
   }
 
   loadData(pageNumber: number) {
-    this.sensexService.getAll().subscribe((data) => {
-      this.sensexData = data;
-      this.currentPage = pageNumber;
-      this.paginate();
-      this.cdr.detectChanges();
-      // console.log(this.sensexData);
-      // console.log(this.averageCalculator.calculateMonthlyAverage(this.sensexData));
+    this.sensexService.getAll().subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res.length != 0) {
+          // console.log('in load data');
+          // this.notification.showSuccess('Success');
+          this.sensexData = res;
+          this.currentPage = pageNumber;
+          this.paginate();
+          this.cdr.detectChanges();
+        } else {
+          this.notification.showWarning(res.message);
+        }
+      },
+      error: (err) => {
+        this.notification.showError(
+          err.error?.message || 'Something went wrong'
+        );
+      },
     });
   }
 
@@ -160,11 +174,27 @@ export class SensexList implements OnInit {
   }
 
   addNewData(newData: any) {
-    this.sensexService.addData(newData).subscribe((data) => {
+    this.sensexService.addData(newData).subscribe({
       // this.loadData(1);
-      console.log(data);
-      this.highlightedId = data._id;
-      this.ngZone.run(() => this.loadDataAndHighlight(data._id));
+      next: (res) => {
+        console.log(res);
+        if (res.length != 0) {
+          // console.log('in load data');
+          this.notification.showSuccess('Added Data Successfully');
+          console.log(res);
+          this.highlightedId = res._id;
+          this.ngZone.run(() => this.loadDataAndHighlight(res._id));
+          this.cdr.detectChanges();
+        } else {
+          this.notification.showWarning(res.message);
+        }
+      },
+      error: (err) => {
+        this.notification.showError(
+          err.error?.message || 'Something went wrong'
+        );
+      },
+
       // this.loadDataAndHighlight(data._id);
       // console.log(this.sensexData);
     });
@@ -173,9 +203,25 @@ export class SensexList implements OnInit {
     // this.addClose = null;
   }
   updateData(updatedData: any) {
-    this.sensexService.updateData(updatedData).subscribe((data) => {
+    this.sensexService.updateData(updatedData).subscribe({
       // this.tempCurrentPage = this.currentPage;
-      this.loadData(this.currentPage);
+      next: (res) => {
+        console.log(res);
+        if (res.length != 0) {
+          // console.log('in load data');
+          this.notification.showSuccess('Updated Successfully');
+          this.loadData(this.currentPage);
+          this.cdr.detectChanges();
+        } else {
+          this.notification.showWarning(res.message);
+        }
+      },
+      error: (err) => {
+        this.notification.showError(
+          err.error?.message || 'Something went wrong'
+        );
+      },
+
       // this.paginate();
       // console.log(this.sensexData);
     });
@@ -186,8 +232,24 @@ export class SensexList implements OnInit {
 
   deleteData(flag: boolean) {
     console.log(this.dataToDelete);
-    this.sensexService.deleteData(this.dataToDelete).subscribe((data) => {
-      this.loadData(this.currentPage);
+    this.sensexService.deleteData(this.dataToDelete).subscribe({
+      next: (res) => {
+        console.log(res);
+        if (res.length != 0) {
+          // console.log('in load data');
+          this.notification.showSuccess('Deleted Successfully');
+          this.loadData(this.currentPage);
+          this.cdr.detectChanges();
+        } else {
+          this.notification.showWarning(res.message);
+        }
+      },
+      error: (err) => {
+        this.notification.showError(
+          err.error?.message || 'Something went wrong'
+        );
+      },
+
       // console.log(this.sensexData);
     });
     this.isDeleteOpen = false;

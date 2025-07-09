@@ -2,28 +2,37 @@ const express = require("express");
 const router = express.Router();
 const SensexData = require("../models/SensexData");
 const auth = require("../middleware/auth");
+// const {
+//   handleGetSensexData,
+//   handleGetSensexDataById,
+// } = require("../controllers/fetchSensexData");
+// const {
+//   handleAddNewData,
+//   handleUpdateData,
+// } = require("../controllers/updateSensexData");
+// const {
+//   handleDeleteSensexData,
+//   handleDeleteSensexDataById,
+// } = require("../controllers/deleteSensexData");
 const {
-  handleGetSensexData,
-  handleGetSensexDataById,
-} = require("../controllers/fetchSensexData");
-const {
-  handleAddNewData,
-  handleUpdateData,
-} = require("../controllers/updateSensexData");
-const {
-  handleDeleteSensexData,
-  handleDeleteSensexDataById,
-} = require("../controllers/deleteSensexData");
+  find,
+  findById,
+  add,
+  update,
+  deleteAll,
+  deleteById,
+} = require("../db/masterDBService");
 
-router.get("/", auth, handleGetSensexData);
+router.get("/", auth, find);
 
-router.get("/:id", auth, handleGetSensexDataById);
+router.get("/:id", auth, findById);
 
-router.post("/", auth, handleAddNewData);
+router.post("/", auth, add);
 
-router.put("/:id", auth, handleUpdateData);
+router.put("/:id", auth, update);
 
-router.delete("/:id", auth, handleDeleteSensexDataById);
+router.delete("/delete-all", auth, deleteAll);
 
-router.delete("/delete-all", auth, handleDeleteSensexData);
+router.delete("/:id", auth, deleteById);
+
 module.exports = router;
