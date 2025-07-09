@@ -106,8 +106,6 @@ export class SensexList implements OnInit {
       next: (res) => {
         console.log(res);
         if (res.length != 0) {
-          // console.log('in load data');
-          // this.notification.showSuccess('Success');
           this.sensexData = res;
           this.currentPage = pageNumber;
           this.paginate();
@@ -175,11 +173,9 @@ export class SensexList implements OnInit {
 
   addNewData(newData: any) {
     this.sensexService.addData(newData).subscribe({
-      // this.loadData(1);
       next: (res) => {
         console.log(res);
         if (res.length != 0) {
-          // console.log('in load data');
           this.notification.showSuccess('Added Data Successfully');
           console.log(res);
           this.highlightedId = res._id;
@@ -194,21 +190,13 @@ export class SensexList implements OnInit {
           err.error?.message || 'Something went wrong'
         );
       },
-
-      // this.loadDataAndHighlight(data._id);
-      // console.log(this.sensexData);
     });
-    // this.addDate = "";
-    // this.addOpen = null;
-    // this.addClose = null;
   }
   updateData(updatedData: any) {
     this.sensexService.updateData(updatedData).subscribe({
-      // this.tempCurrentPage = this.currentPage;
       next: (res) => {
         console.log(res);
         if (res.length != 0) {
-          // console.log('in load data');
           this.notification.showSuccess('Updated Successfully');
           this.loadData(this.currentPage);
           this.cdr.detectChanges();
@@ -221,13 +209,7 @@ export class SensexList implements OnInit {
           err.error?.message || 'Something went wrong'
         );
       },
-
-      // this.paginate();
-      // console.log(this.sensexData);
     });
-    // this.addDate = "";
-    // this.addOpen = null;
-    // this.addClose = null;
   }
 
   deleteData(flag: boolean) {
@@ -236,7 +218,6 @@ export class SensexList implements OnInit {
       next: (res) => {
         console.log(res);
         if (res.length != 0) {
-          // console.log('in load data');
           this.notification.showSuccess('Deleted Successfully');
           this.loadData(this.currentPage);
           this.cdr.detectChanges();
@@ -249,13 +230,8 @@ export class SensexList implements OnInit {
           err.error?.message || 'Something went wrong'
         );
       },
-
-      // console.log(this.sensexData);
     });
     this.isDeleteOpen = false;
-    // this.addDate = "";
-    // this.addOpen = null;
-    // this.addClose = null;
   }
 
   onLogout() {

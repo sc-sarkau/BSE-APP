@@ -1,22 +1,21 @@
-body{
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.wrapper{
-    height:60vh;
-    /* width: 100vw; */
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.wrapper {
+  height: 60vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .chart-container {
-    position:relative; 
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    height:60vh; 
-    width:90vw;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 60vh;
+  width: 90vw;
 }
 
 .back-button {

@@ -4,18 +4,15 @@ body {
 .styled-table {
   border-collapse: separate;
   border-spacing: 0;
-  /* border-radius: ; */
   width: 80%;
   max-width: 500px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   border-radius: 12px;
   overflow: hidden;
-  /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
   background-color: white;
 }
 
 .styled-table thead {
-  /* background-color: #333; */
   background: linear-gradient(to right, #8ec5fc, #e0c3fc);
   color: #333;
   text-transform: uppercase;
@@ -145,18 +142,12 @@ body {
   background-size: 400% 400%;
   border: none;
   cursor: pointer;
-  /* animation: gradientIdle 5s ease infinite; */
-  /* transition: background-position 0.5s ease, background-size 0.5s ease; */
   outline: none;
 }
 
 .button-ai:hover {
   background-color: #1976d2;
 }
-/* .button-ai:hover {
-  animation: gradientFlow 1s ease-in-out infinite;
-  background-size: 800% 800%;
-} */
 
 @keyframes gradientIdle {
   0% {
@@ -169,14 +160,6 @@ body {
     background-position: 0% 50%;
   }
 }
-
-/* @keyframes gradientFlow {
-  0% { background-position: 0% 50%; }
-  25% { background-position: 50% 50%; }
-  50% { background-position: 100% 50%; }
-  75% { background-position: 50% 50%; }
-  100% { background-position: 0% 50%; }
-} */
 
 .operations {
   margin: auto;

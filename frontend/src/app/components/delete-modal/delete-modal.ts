@@ -4,11 +4,9 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   selector: 'app-delete-modal',
   imports: [],
   templateUrl: './delete-modal.html',
-  styleUrl: './delete-modal.css'
+  styleUrl: './delete-modal.css',
 })
 export class DeleteModal {
-  // @Input() data : any = {};
-  
   @Output() dataDeleted = new EventEmitter<any>();
   @Output() deleteModalClosure = new EventEmitter<any>();
 

@@ -1,14 +1,6 @@
 const pool = require("../config/postgres");
 
 module.exports = {
-  //   async create(data) {
-  //     const result = await pool.query(
-  //       'INSERT INTO my_table (column1, column2) VALUES ($1, $2) RETURNING *',
-  //       [data.column1, data.column2]
-  //     );
-  //     return result.rows[0];
-  //   },
-
   async add(req, res) {
     const data = req.body;
     const result = await pool.query(

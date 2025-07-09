@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class Auth {
   private apiUrl = 'http://localhost:3000/users';
@@ -37,18 +37,6 @@ export class Auth {
     this.tokenExpirationTimer = setTimeout(() => {
       alert('Session expired. You have been logged out.');
       this.logout();
-      
-
-      // console.log("chala");
     }, expirationDuration);
   }
-
-  // autoLogin() {
-  //   const token = this.getToken();
-  //   if (token) {
-  //     const expiresIn = 15 * 60 * 1000;
-  //     this.autoLogout(expiresIn);
-  //     this.router.navigate(['sensex-list']);
-  //   }
-  // }
 }

@@ -1,61 +1,92 @@
-<!-- <p>sensex-list works!</p> -->
- <body>
+<body>
   <div class="top-bar">
     <button class="btn btn-cancel" (click)="onLogout()">Logout</button>
   </div>
-  <div style="display: flex; justify-content: center; align-items: center;">
-<h2>BSE Sensex 2018</h2>
-</div>
-<div>
-  <app-average-graph ></app-average-graph>
-</div>
-<!-- <input type="text" placeholder="Enter Date" [(ngModel)] = "addDate">
-<input type="number" placeholder="Enter Open Price" [(ngModel)] = "addOpen">
-<input type="number" placeholder="Enter Close Price" [(ngModel)] = "addClose"> -->
-<!-- background: linear-gradient(to right, #f5f7fa, #c3cfe2); -->
- <div class="operations">
-<button class="btn btn-add" (click)="openModal()">Add Data</button>
-<button class="btn button-ai" (click)="toGraph()">Average Closing Price</button>
-</div>
-<div style="display: flex; flex-direction: column; align-items: center; min-height: 100vh;">
-  <table class="styled-table">
-    <thead>
-      <tr>
-        <th>Date</th>
-        <th>Open</th>
-        <th>Close</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of paginatedData" [id]="'entry-' + item._id">
-        <td>{{ item.date | date: 'yyyy-MM-dd' }}</td>
-        <td>{{ item.open }}</td>
-        <td>{{ item.close }}</td>
-        <td style="display: flex; justify-content: space-evenly; align-items: center;">
-          <button class="icon-button" (click)="handleAction(item)"><img src="pen.png" alt="Graph Icon" /></button>
-          <button class="icon-button" (click)="handleDelete(item)"><img src="delete.png" alt="Graph Icon" /></button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <div class="page-indicator">
-    Page {{ currentPage }}
+  <div style="display: flex; justify-content: center; align-items: center">
+    <h2>BSE Sensex 2018</h2>
   </div>
-  <div class="pagination-container">
-    <button class="btn btn-page" (click)="prevPage()" [disabled]="currentPage === 1">
-      ◀ Prev
-    </button>
-
-    <button class="btn btn-page" (click)="nextPage()" [disabled]="currentPage * itemsPerPage >= sensexData.length">
-      Next ▶
+  <div>
+    <app-average-graph></app-average-graph>
+  </div>
+  <div class="operations">
+    <button class="btn btn-add" (click)="openModal()">Add Data</button>
+    <button class="btn button-ai" (click)="toGraph()">
+      Average Closing Price
     </button>
   </div>
-</div>
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    "
+  >
+    <table class="styled-table">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Open</th>
+          <th>Close</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of paginatedData" [id]="'entry-' + item._id">
+          <td>{{ item.date | date: 'yyyy-MM-dd' }}</td>
+          <td>{{ item.open }}</td>
+          <td>{{ item.close }}</td>
+          <td
+            style="
+              display: flex;
+              justify-content: space-evenly;
+              align-items: center;
+            "
+          >
+            <button class="icon-button" (click)="handleAction(item)">
+              <img src="pen.png" alt="Graph Icon" />
+            </button>
+            <button class="icon-button" (click)="handleDelete(item)">
+              <img src="delete.png" alt="Graph Icon" />
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="page-indicator">Page {{ currentPage }}</div>
+    <div class="pagination-container">
+      <button
+        class="btn btn-page"
+        (click)="prevPage()"
+        [disabled]="currentPage === 1"
+      >
+        ◀ Prev
+      </button>
 
+      <button
+        class="btn btn-page"
+        (click)="nextPage()"
+        [disabled]="currentPage * itemsPerPage >= sensexData.length"
+      >
+        Next ▶
+      </button>
+    </div>
+  </div>
 
-
-<app-add-data-modal *ngIf="isModalOpen" (dataAdded)="addNewData($event)" (modalClosure)="closeModal($event)"></app-add-data-modal>
-<app-action-modal *ngIf = "isActionOpen" [data]="dataToUpdate" (actionModalClosure)="closeActionModal($event)" (dataUpdated)="updateData($event)"></app-action-modal>
-<app-delete-modal *ngIf = "isDeleteOpen" (dataDeleted)="deleteData($event)" (deleteModalClosure)="closeDeleteModal($event)"></app-delete-modal>
+  <app-add-data-modal
+    *ngIf="isModalOpen"
+    (dataAdded)="addNewData($event)"
+    (modalClosure)="closeModal($event)"
+  ></app-add-data-modal>
+  <app-action-modal
+    *ngIf="isActionOpen"
+    [data]="dataToUpdate"
+    (actionModalClosure)="closeActionModal($event)"
+    (dataUpdated)="updateData($event)"
+  ></app-action-modal>
+  <app-delete-modal
+    *ngIf="isDeleteOpen"
+    (dataDeleted)="deleteData($event)"
+    (deleteModalClosure)="closeDeleteModal($event)"
+  ></app-delete-modal>
 </body>
